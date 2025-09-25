@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Plataforma Jovem Aprendiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+
+        <header class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Olá, Jovem Aprendiz!</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-lg font-medium">Nível 3</span>
+                <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold text-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A5.992 5.992 0 0112 15c2.446 0 4.673.946 6.121 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0zM12 2a10 10 0 100 20 10 10 0 000-20z" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8 border border-blue-500">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <span class="text-sm text-gray-500 font-medium">Progresso</span>
+                    <p class="text-2xl font-semibold text-blue-600">Nível 3</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-sm text-gray-500 font-medium">XP</span>
+                    <p class="text-2xl font-semibold text-gray-900">320 / 400</p>
+                </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 80%"></div>
+            </div>
+            <p class="mt-2 text-sm text-gray-500 text-right">Faltam 80 XP para o próximo nível!</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Próximas Missões</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                </div>
+                <ul class="space-y-4">
+                    <li class="p-4 bg-gray-50 rounded-lg flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">Assistir vídeo sobre Git e GitHub</p>
+                            <span class="text-sm text-gray-500">Trilha: TI</span>
+                        </div>
+                        <span class="bg-yellow-200 text-yellow-800 text-xs font-medium px-2.5 py-1 rounded-full">+50 XP</span>
+                    </li>
+                    <li class="p-4 bg-gray-50 rounded-lg flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">Missão de Soft Skills: Trabalho em Equipe</p>
+                            <span class="text-sm text-gray-500">Trilha: Soft Skills</span>
+                        </div>
+                        <span class="bg-yellow-200 text-yellow-800 text-xs font-medium px-2.5 py-1 rounded-full">+80 XP</span>
+                    </li>
+                    <li class="p-4 bg-gray-50 rounded-lg flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">Questionário sobre Comunicação Assertiva</p>
+                            <span class="text-sm text-gray-500">Trilha: Soft Skills</span>
+                        </div>
+                        <span class="bg-yellow-200 text-yellow-800 text-xs font-medium px-2.5 py-1 rounded-full">+30 XP</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Trilhas em Andamento</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.132l-3.32-3.32a.75.75 0 00-1.06 1.06l3.32 3.32a.75.75 0 001.06-1.06zM12 21a9 9 0 100-18 9 9 0 000 18z" />
+                    </svg>
+                </div>
+                <ul class="space-y-4">
+                    <li class="p-4 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="font-medium">Trilha de Soft Skills</p>
+                            <span class="text-sm font-semibold text-blue-600">60%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5">
+                            <div class="bg-blue-600 h-1.5 rounded-full" style="width: 60%"></div>
+                        </div>
+                    </li>
+                    <li class="p-4 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="font-medium">Trilha de TI: Fundamentos</p>
+                            <span class="text-sm font-semibold text-blue-600">30%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5">
+                            <div class="bg-blue-600 h-1.5 rounded-full" style="width: 30%"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Conquistas Recentes</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.947-.547 3.738-1.5 5.5s-2.074 3.3-3 4.5-.788 2.5-1.5 3.5c-.712 1-1.5 1-2.5 1s-1.788 0-2.5-1c-.712-1-1.25-2.25-1.5-3.5s-2.074-3.3-3-4.5S2 13 2 11s.547-3.738 1.5-5.5-2.074-3.3-3-4.5-.788-2.5-1.5-3.5c-.712-1-1.5-1-2.5-1s-1.788 0-2.5 1c-.712 1-1.25 2.25-1.5 3.5s-2.074 3.3-3 4.5c-1 1.2-1.5 3.053-1.5 5.5z" />
+                    </svg>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-col items-center">
+                        <span class="text-5xl">🏆</span>
+                        <span class="text-xs font-medium mt-1 text-center">Primeira Missão</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-5xl">🏅</span>
+                        <span class="text-xs font-medium mt-1 text-center">Iniciante</span>
+                    </div>
+                    <div class="flex flex-col items-center opacity-50">
+                        <span class="text-5xl">🎯</span>
+                        <span class="text-xs font-medium mt-1 text-center">Nível 5</span>
+                    </div>
+                    <div class="flex flex-col items-center opacity-50">
+                        <span class="text-5xl">🎓</span>
+                        <span class="text-xs font-medium mt-1 text-center">1ª Trilha</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Plataforma Jovem Aprendiz. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
