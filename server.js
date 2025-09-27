@@ -22,7 +22,7 @@ const app = express();
 // --- NOVA CONFIGURAÇÃO CORS ROBUSTA ---
 const allowedOrigins = [
   'https://jovem-aprendiz-api.onrender.com', // Sua própria API (para referência interna)
-  'https://plataforma-jovem-aprendiz.netlify.app/' // <<-- Mude este placeholder para o seu domínio real do Netlify
+  'https://plataforma-jovem-aprendiz.netlify.app' // <<-- Mude este placeholder para o seu domínio real do Netlify
 ];
 
 const corsOptions = {
