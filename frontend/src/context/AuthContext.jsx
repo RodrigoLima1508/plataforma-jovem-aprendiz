@@ -1,4 +1,4 @@
-// frontend/src/context/AuthContext.jsx
+// frontend/src/context/AuthContext.jsx - CORRIGIDO PARA DEPLOYMENT
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
@@ -11,20 +11,20 @@ export const useAuth = () => {
     return useContext(AuthContext);
 };
 
+// --- NOVA DEFINIÇÃO DE URL PARA DEPLOY ---
+// O Vite (e Netlify) injetam variáveis que começam com VITE_
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_URL = `${API_BASE_URL}/api/users`; 
+// --- FIM DA NOVA DEFINIÇÃO ---
+
 // 2. Componente Provedor do Contexto
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token') || null);
     
-    // URL base da nossa API (o servidor Node.js)
-    // Usamos o endereço de rede do Codespace para a comunicação Back-end <-> Front-end
-    const API_URL = 'http://localhost:5000/api/users'; 
-
     // Efeito para carregar o usuário e o token no início (se já estiver logado)
     useEffect(() => {
         if (token) {
-            // Se houver um token, tentamos buscar os dados do perfil (próximo passo!)
-            // Para simplificar agora, apenas definimos o token
             setToken(token);
         }
     }, [token]);
@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     // Função principal de Login
     const login = async (email, senha) => {
         try {
+            // Usa a API_URL que agora aponta para o Render
             const response = await axios.post(`${API_URL}/login`, { email, senha });
             
             const newToken = response.data.token;
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
             
             // 2. Atualiza o estado da aplicação
             setToken(newToken);
-            setUser(response.data); // Salva os dados do usuário (ID, nome, XP, etc.)
+            setUser(response.data); 
             
             return true; // Login bem-sucedido
             
