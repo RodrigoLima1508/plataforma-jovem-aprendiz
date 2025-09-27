@@ -1,7 +1,7 @@
-// frontend/src/context/AuthContext.jsx - CORRIGIDO PARA DEPLOYMENT
+// frontend/src/context/AuthContext.jsx - CORRIGIDO FINAL
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios'; // <--- CORREÇÃO: Importamos a instância configurada 'api'
 
 // 1. Criação do Contexto
 const AuthContext = createContext();
@@ -32,8 +32,8 @@ export const AuthProvider = ({ children }) => {
     // Função principal de Login
     const login = async (email, senha) => {
         try {
-            // Usa a API_URL que agora aponta para o Render
-            const response = await axios.post(`${API_URL}/login`, { email, senha });
+            // USAMOS 'api' AO INVES DE AXIOS
+            const response = await api.post(`${API_URL}/login`, { email, senha }); 
             
             const newToken = response.data.token;
             
