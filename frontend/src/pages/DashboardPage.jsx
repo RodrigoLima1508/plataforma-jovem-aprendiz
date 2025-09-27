@@ -1,22 +1,31 @@
-// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E LIMPO COM INTERCEPTOR
+// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E LIMPO
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../api/axios'; // <--- Usamos a instância com o interceptor
-
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-const PROFILE_URL = `${API_BASE_URL}/api/users/profile`;
+import api from '../api/axios'; // Importa o axios com o interceptor
+// IMPORTANTE: Não precisamos mais de uma API_URL local
 
 const DashboardPage = () => {
-  const { isAuthenticated, logout, user, token } = useAuth(); // Pega o token do contexto
+  const { isAuthenticated, logout, user, token } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState(user);
   const [loading, setLoading] = useState(!user);
   const [missoesSugeridas, setMissoesSugeridas] = useState([]);
   const [trilhasAtivas, setTrilhasAtivas] = useState([]);
 
-  // --- Estilos Base (omiti por brevidade, mas estão no seu arquivo) ---
+  // --- Estilos Base ---
+  const baseCardStyle = {
+    backgroundColor: 'white', 
+    padding: '20px', 
+    borderRadius: '8px', 
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    color: '#333'
+  };
+  const responsiveCardStyle = { 
+    flex: '1 1 300px', 
+    minWidth: '300px'
+  };
 
   // Efeito principal para buscar Perfil, Missões e Trilhas
   useEffect(() => {
@@ -25,21 +34,20 @@ const DashboardPage = () => {
       return;
     }
     
-    // Se não houver token, o interceptor falhará, mas o useEffect tenta de novo
-    if (!token) return; 
+    if (!token) return; // O interceptor garantirá que o token será enviado
 
     const fetchData = async () => {
       setLoading(true);
       try {
-        const apiBaseUrl = API_BASE_URL;
-
-        // 1. Buscar Perfil - O interceptor adiciona o token automaticamente
-        const profileResponse = await api.get(`${API_BASE_URL}/api/users/profile`);
+        // As chamadas agora usam o caminho relativo, pois o interceptor define a URL base
+        
+        // 1. Buscar Perfil (O token é enviado automaticamente pelo interceptor)
+        const profileResponse = await api.get(`/api/users/profile`);
         setProfile(profileResponse.data);
 
         // 2. Buscar Missões e Trilhas
-        const missoesResponse = await api.get(`${apiBaseUrl}/api/missoes`);
-        const trilhasResponse = await api.get(`${apiBaseUrl}/api/trilhas`);
+        const missoesResponse = await api.get(`/api/missoes`);
+        const trilhasResponse = await api.get(`/api/trilhas`);
         
         // ... (lógica de filtro de missões sugeridas) ...
         const sugeridas = missoesResponse.data.filter(
@@ -51,7 +59,7 @@ const DashboardPage = () => {
 
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
-        // Se a chamada falhar (token inválido/expirado), desloga
+        // Se a chamada falhar (por exemplo, 401), desloga
         if (error.response?.status === 401) {
             logout();
         }
@@ -67,16 +75,14 @@ const DashboardPage = () => {
     return <div style={{ textAlign: 'center', marginTop: '50px', color: '#333' }}>Carregando Dashboard...</div>;
   }
   
-  // ... (Lógica de XP e Renderização) ...
+  // Lógica de XP
   const xpNecessario = 100 * profile.nivel;
   const progresso = (profile.xp / xpNecessario) * 100;
   const missoesCount = profile.missoesConcluidas?.length || 0;
   const proximoNivelXP = xpNecessario - profile.xp;
 
   return (
-    // ... (restante do código de renderização do Dashboard) ...
     <div style={{ minHeight: '100vh', backgroundColor: '#f0f0f0', padding: '40px 20px', color: '#333' }}>
-      {/* O seu código de renderização final está aqui */}
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
         {/* Header Dinâmico */}
