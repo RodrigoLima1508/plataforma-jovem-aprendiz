@@ -1,14 +1,14 @@
-// frontend/src/pages/MissionDetailPage.jsx - CÓDIGO FINAL COM MÚLTIPLA ESCOLHA
+// frontend/src/pages/MissionDetailPage.jsx - CORREÇÃO FINAL PARA DEPLOY
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios'; // <-- USE A INSTÂNCIA CONFIGURADA
 import { useAuth } from '../context/AuthContext';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
-const API_URL = 'http://localhost:5000/api/missoes';
+// REMOVIDO: const API_URL = 'http://localhost:5000/api/missoes';
 
 const MissionDetailPage = () => {
-    const { token, user } = useAuth();
+    const { token, user, logout } = useAuth(); // Importamos logout para deslogar em caso de erro
     const { id } = useParams();
     const navigate = useNavigate();
     
@@ -21,12 +21,11 @@ const MissionDetailPage = () => {
     // Efeito para buscar os dados da missão
     useEffect(() => {
         const fetchMission = async () => {
-            if (!token) return;
+            if (!token) return logout(); // Se não há token, desloga imediatamente
 
             try {
-                const response = await axios.get(API_URL, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                // CHAMADA CORRIGIDA: Usamos 'api.get' e o caminho direto da API
+                const response = await api.get('/api/missoes'); 
                 
                 const foundMission = response.data.find(m => m._id === id);
                 if (foundMission) {
@@ -35,14 +34,18 @@ const MissionDetailPage = () => {
                     setMessage('Missão não encontrada.');
                 }
             } catch (err) {
-                setMessage('Erro ao carregar os detalhes da missão.');
+                // Em caso de falha na busca (401), desloga
+                if (err.response && err.response.status === 401) {
+                    logout();
+                }
+                setMessage('Erro ao carregar os detalhes da missão. Verifique a API.');
             } finally {
                 setLoading(false);
             }
         };
 
         fetchMission();
-    }, [token, id, user]); 
+    }, [token, id, logout]); 
 
     // Lógica para submeter o Quiz (envia a letra da opção)
     const handleSubmit = async (e) => {
@@ -57,11 +60,10 @@ const MissionDetailPage = () => {
         setCompleteLoading(true);
 
         try {
-            const response = await axios.post(`${API_URL}/complete`, { 
+            // CHAMADA CORRIGIDA: Usamos 'api.post' e o caminho direto da API
+            const response = await api.post('/api/missoes/complete', { 
                 missaoId: id,
                 respostaUsuario: selectedAnswer, // Enviamos a LETRA selecionada (A, B, C, D)
-            }, {
-                headers: { Authorization: `Bearer ${token}` },
             });
 
             // Sucesso: Redireciona para a Dashboard com sucesso
