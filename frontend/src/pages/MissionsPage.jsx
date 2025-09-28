@@ -1,11 +1,10 @@
-// frontend/src/pages/MissionsPage.jsx - CÓDIGO FINAL CORRIGIDO COM LINK
+// frontend/src/pages/MissionsPage.jsx - CORRIGIDO FINAL PARA DEPLOY
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios'; // <--- USAMOS A INSTÂNCIA CONFIGURADA
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom'; // Importante: Componente Link
+import { Link } from 'react-router-dom'; 
 
-const API_URL = 'http://localhost:5000/api/missoes';
 
 const MissionsPage = () => {
     const { token } = useAuth();
@@ -13,21 +12,16 @@ const MissionsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    // Efeito para buscar as missões quando o componente é carregado
     useEffect(() => {
         const fetchMissoes = async () => {
             if (!token) return;
 
             try {
-                // Requisição protegida, enviando o token
-                const response = await axios.get(API_URL, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                setMissoes(response.data); // Recebe o array de missões
+                // CORREÇÃO: Usa 'api.get' e o caminho direto da API
+                const response = await api.get('/api/missoes'); 
+                setMissoes(response.data); 
             } catch (err) {
-                setError('Falha ao carregar as missões. Tente novamente.');
+                setError('Falha ao carregar as missões. Verifique se o Render está ativo.');
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -37,13 +31,8 @@ const MissionsPage = () => {
         fetchMissoes();
     }, [token]);
 
-    if (loading) {
-        return <div style={{ textAlign: 'center', marginTop: '50px', color: '#333' }}>Carregando Missões...</div>;
-    }
-
-    if (error) {
-        return <div style={{ textAlign: 'center', marginTop: '50px', color: 'red' }}>Erro: {error}</div>;
-    }
+    // ... (O restante do código de renderização fica aqui) ...
+    // ... (Apenas cole o que está dentro do 'return') ...
 
     return (
         <div className="p-8" style={{ minHeight: '100vh', backgroundColor: '#f0f0f0', color: '#333' }}>
@@ -58,7 +47,7 @@ const MissionsPage = () => {
                 {missoes.length === 0 ? (
                     <p style={{ textAlign: 'center', fontSize: '18px' }}>Nenhuma missão encontrada. Crie uma via Insomnia para testar!</p>
                 ) : (
-                    <div className="grid gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+                    <div style={{ display: 'grid', gap: '20px', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
                         {missoes.map((missao) => (
                             <div key={missao._id} style={{ 
                                 backgroundColor: 'white', 
@@ -73,9 +62,8 @@ const MissionsPage = () => {
                                     XP: <span style={{ color: '#28a745' }}>+{missao.xp}</span> | Categoria: {missao.categoria}
                                 </p>
                                 
-                                {/* CORREÇÃO: Usamos o componente Link para criar o link dinâmico */}
                                 <Link 
-                                    to={`/missions/${missao._id}`} // <--- Passamos o ID da missão na URL
+                                    to={`/missions/${missao._id}`}
                                     style={{ 
                                         display: 'inline-block',
                                         padding: '10px 20px', 

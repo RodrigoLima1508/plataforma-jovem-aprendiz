@@ -1,11 +1,10 @@
-// frontend/src/pages/TrilhasPage.jsx
+// frontend/src/pages/TrilhasPage.jsx - CORRIGIDO FINAL PARA DEPLOY
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios'; // <-- USAMOS A INSTÂNCIA CONFIGURADA
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
-const API_URL = 'http://localhost:5000/api/trilhas';
 
 const TrilhasPage = () => {
     const { token } = useAuth();
@@ -18,13 +17,11 @@ const TrilhasPage = () => {
             if (!token) return;
 
             try {
-                // Requisição protegida para buscar as trilhas (com missões populadas)
-                const response = await axios.get(API_URL, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                // CORREÇÃO: Usa 'api.get' e o caminho direto da API
+                const response = await api.get('/api/trilhas'); 
                 setTrilhas(response.data);
             } catch (err) {
-                setError('Falha ao carregar as trilhas.');
+                setError('Falha ao carregar as trilhas. Verifique se o Render está ativo.');
             } finally {
                 setLoading(false);
             }
@@ -50,10 +47,7 @@ const TrilhasPage = () => {
                 {trilhas.length === 0 ? (
                     <p style={{ textAlign: 'center', fontSize: '18px' }}>Nenhuma trilha encontrada. Crie uma via Insomnia para testar!</p>
                 ) : (
-                    <div style={{ display: 'grid', gap: '20px', 
-                        // Responsividade: 1 coluna em mobile, 2 em desktop
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' 
-                    }}>
+                    <div style={{ display: 'grid', gap: '20px', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
                         {trilhas.map((trilha) => (
                             <div key={trilha._id} style={{ 
                                 backgroundColor: 'white', 
