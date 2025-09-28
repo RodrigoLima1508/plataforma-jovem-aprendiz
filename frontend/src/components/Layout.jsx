@@ -35,6 +35,7 @@ const Layout = () => {
                     <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
                     <Link to="/missions" style={linkStyle}>Missões</Link>
                     <Link to="/trilhas" style={linkStyle}>Trilhas</Link> {/* <-- NOVO LINK: Adicionado a rota de Trilhas */}
+                    <Link to="/ranking" style={linkStyle}>Ranking</Link> {/* <-- NOVO LINK */}
                     <Link to="/curriculum" style={linkStyle}>Currículo</Link>
                     <button 
                         onClick={logout} 

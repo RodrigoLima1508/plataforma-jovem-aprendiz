@@ -8,6 +8,7 @@ import MissionsPage from './pages/MissionsPage';
 import TrilhasPage from './pages/TrilhasPage'; // <-- NOVO: Importe a página de Trilhas
 import Layout from './components/Layout'; // Importe o componente de Layout
 import MissionDetailPage from './pages/MissionDetailPage'; // <-- NOVO
+import RankingPage from './pages/RankingPage';
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="/curriculum" element={<CurriculumPage />} /> 
           <Route path="/missions" element={<MissionsPage />} />
           <Route path="/trilhas" element={<TrilhasPage />} /> 
+          <Route path="/ranking" element={<RankingPage />} /> 
+    
       </Route>
     </Routes>
   );
