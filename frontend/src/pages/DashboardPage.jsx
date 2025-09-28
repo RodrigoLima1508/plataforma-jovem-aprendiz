@@ -1,10 +1,9 @@
-// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E LIMPO
+// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E COMPLETO
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/axios'; // Importa o axios com o interceptor
-// IMPORTANTE: Não precisamos mais de uma API_URL local
 
 const DashboardPage = () => {
   const { isAuthenticated, logout, user, token } = useAuth();
@@ -39,8 +38,6 @@ const DashboardPage = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // As chamadas agora usam o caminho relativo, pois o interceptor define a URL base
-        
         // 1. Buscar Perfil (O token é enviado automaticamente pelo interceptor)
         const profileResponse = await api.get(`/api/users/profile`);
         setProfile(profileResponse.data);
@@ -69,7 +66,7 @@ const DashboardPage = () => {
     };
 
     fetchData();
-  }, [isAuthenticated, navigate, logout, token]); // Depende do Token do Contexto
+  }, [isAuthenticated, navigate, logout, token]);
 
   if (loading || !profile) {
     return <div style={{ textAlign: 'center', marginTop: '50px', color: '#333' }}>Carregando Dashboard...</div>;
@@ -85,9 +82,22 @@ const DashboardPage = () => {
     <div style={{ minHeight: '100vh', backgroundColor: '#f0f0f0', padding: '40px 20px', color: '#333' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-        {/* Header Dinâmico */}
+        {/* Header Dinâmico (Com Link para o Ranking) */}
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
             <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#1a1a1a' }}>Olá, {profile.nome}!</h1>
+            
+            {/* NOVO: Link para a página de Ranking */}
+            <Link to="/ranking" style={{ 
+                fontSize: '16px', 
+                fontWeight: 'bold', 
+                color: '#007bff', 
+                textDecoration: 'none', 
+                border: '2px solid #007bff', 
+                padding: '8px 15px', 
+                borderRadius: '4px' 
+            }}>
+                Ver Ranking 🏆
+            </Link>
         </header>
 
         {/* Cartão Principal: Nível e Progresso */}
