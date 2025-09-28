@@ -24,5 +24,5 @@
 
         fetchRanking();
     }, [token, logout]); // Dependências
-
+export default RankingPage;
 // ... (o restante do seu código de renderização) ...
