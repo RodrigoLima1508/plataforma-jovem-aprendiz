@@ -82,23 +82,7 @@ const DashboardPage = () => {
     <div style={{ minHeight: '100vh', backgroundColor: '#f0f0f0', padding: '40px 20px', color: '#333' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-        {/* Header Dinâmico (Com Link para o Ranking) */}
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-            <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#1a1a1a' }}>Olá, {profile.nome}!</h1>
-            
-            {/* NOVO: Link para a página de Ranking */}
-            <Link to="/ranking" style={{ 
-                fontSize: '16px', 
-                fontWeight: 'bold', 
-                color: '#007bff', 
-                textDecoration: 'none', 
-                border: '2px solid #007bff', 
-                padding: '8px 15px', 
-                borderRadius: '4px' 
-            }}>
-                Ver Ranking 🏆
-            </Link>
-        </header>
+      
 
         {/* Cartão Principal: Nível e Progresso */}
         <div style={{ ...baseCardStyle, borderTop: '5px solid #007bff', marginBottom: '30px' }}>
