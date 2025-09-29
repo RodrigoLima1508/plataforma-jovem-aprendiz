@@ -26,7 +26,11 @@ const Layout = () => {
             }}>
                 {/* AQUI ESTÁ A MUDANÇA: Substituindo o texto "PDJA" pela tag <img> */}
                 <div>
-                    <img src={pdjaLogo} alt="PDJA Logo" style={{ height: '40px' }} /> {/* Ajuste o 'height' conforme preferir */}
+                    <img 
+    src={pdjaLogo} 
+    alt="PDJA Logo" 
+    style={{ height: '50px', flexShrink: 0 }} /* AUMENTADO PARA 50px e adicionado flexShrink */
+/>
                 </div>
                 {/* FIM DA MUDANÇA */}
 
