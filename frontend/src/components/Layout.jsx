@@ -26,7 +26,7 @@ const Layout = () => {
             }}>
                 {/* Voltando ao texto "PDJA" */}
                 <div style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                    PDJA
+                    DCJ
                 </div>
                 {/* Fim da mudança */}
 
