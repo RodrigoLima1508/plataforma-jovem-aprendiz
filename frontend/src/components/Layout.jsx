@@ -29,7 +29,7 @@ const Layout = () => {
                     <img 
     src={pdjaLogo} 
     alt="PDJA Logo" 
-    style={{ height: '50px', flexShrink: 0 }} /* AUMENTADO PARA 50px e adicionado flexShrink */
+    style={{ height: '70px', flexShrink: 0 }} /* AUMENTADO PARA 50px e adicionado flexShrink */
 />
                 </div>
                 {/* FIM DA MUDANÇA */}
