@@ -1,4 +1,4 @@
-// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E COMPLETO
+// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E COMPLETO (Corrigido o Bug de XP/Nível)
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -72,17 +72,39 @@ const DashboardPage = () => {
     return <div style={{ textAlign: 'center', marginTop: '50px', color: '#333' }}>Carregando Dashboard...</div>;
   }
   
-  // Lógica de XP
-  const xpNecessario = 100 * profile.nivel;
-  const progresso = (profile.xp / xpNecessario) * 100;
+  // --- LÓGICA DE XP CORRIGIDA ---
+  const nivelAtual = profile.nivel || 1; // Garante que o nível não é 0 ou undefined
+  
+  // XP acumulado até o nível ANTERIOR
+  const xpParaNivelAnterior = 100 * (nivelAtual - 1); 
+  
+  // XP total necessário para atingir o nível ATUAL (Ex: para ir do N1 para N2, precisa de 100xp no total)
+  const xpParaProximoNivelTotal = 100 * nivelAtual;
+
+  // XP que o usuário já acumulou DENTRO DO NÍVEL ATUAL
+  const xpNoNivelAtual = profile.xp - xpParaNivelAnterior;
+
+  // XP que falta para o usuário subir para o PRÓXIMO NÍVEL
+  const xpRestanteParaProximoNivel = xpParaProximoNivelTotal - profile.xp;
+
+  // O XP total necessário PARA COMPLETAR ESTE NÍVEL (Ex: Se do N1 para N2 precisa de 100XP, e você já tem 20XP, falta 80. A base é 100)
+  const xpNecessarioParaCompletarEsteNivel = xpParaProximoNivelTotal - xpParaNivelAnterior;
+
+  // Progresso da barra (relativo ao nível atual)
+  let progressoBarra = 0;
+  if (xpNoNivelAtual > 0 && xpNecessarioParaCompletarEsteNivel > 0) {
+      progressoBarra = (xpNoNivelAtual / xpNecessarioParaCompletarEsteNivel) * 100;
+  }
+  if (xpRestanteParaProximoNivel <= 0) { // Se já atingiu o próximo nível ou ultrapassou
+      progressoBarra = 100;
+  }
+  // --- FIM DA LÓGICA DE XP CORRIGIDA ---
+
   const missoesCount = profile.missoesConcluidas?.length || 0;
-  const proximoNivelXP = xpNecessario - profile.xp;
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f0f0f0', padding: '40px 20px', color: '#333' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
-      
 
         {/* Cartão Principal: Nível e Progresso */}
         <div style={{ ...baseCardStyle, borderTop: '5px solid #007bff', marginBottom: '30px' }}>
@@ -108,14 +130,17 @@ const DashboardPage = () => {
             {/* Barra de Progresso */}
             <div style={{ marginTop: '20px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: '#6c757d', marginBottom: '5px' }}>
-                    <span style={{ fontWeight: '500' }}>XP: {profile.xp} / {xpNecessario}</span>
-                    <span style={{ fontWeight: '500' }}>{progresso.toFixed(0)}%</span>
+                    {/* Exibe XP dentro do nível atual / XP total necessário para este nível */}
+                    <span style={{ fontWeight: '500' }}>XP: {xpNoNivelAtual} / {xpNecessarioParaCompletarEsteNivel}</span>
+                    <span style={{ fontWeight: '500' }}>{progressoBarra.toFixed(0)}%</span>
                 </div>
                 <div style={{ width: '100%', backgroundColor: '#e9ecef', borderRadius: '5px', height: '10px' }}>
-                    <div style={{ backgroundColor: '#007bff', height: '10px', borderRadius: '5px', width: `${progresso > 100 ? 100 : progresso}%` }}></div>
+                    {/* Barra de progresso visual */}
+                    <div style={{ backgroundColor: '#007bff', height: '10px', borderRadius: '5px', width: `${progressoBarra}%` }}></div>
                 </div>
+                {/* Mensagem de XP restante */}
                 <p style={{ fontSize: '12px', color: '#6c757d', textAlign: 'right', marginTop: '5px' }}>
-                    Faltam {proximoNivelXP} XP para o próximo nível!
+                    {xpRestanteParaProximoNivel > 0 ? `Faltam ${xpRestanteParaProximoNivel} XP para o próximo nível!` : 'Parabéns! Você subiu de nível!'}
                 </p>
             </div>
         </div>
