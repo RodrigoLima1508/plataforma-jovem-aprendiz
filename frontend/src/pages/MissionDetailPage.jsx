@@ -124,7 +124,9 @@ const MissionDetailPage = () => {
 
                 <div style={{ padding: '20px', border: '2px solid #007bff', borderRadius: '8px', backgroundColor: isCompleted ? '#d4edda' : '#eaf4ff' }}>
                     <p style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px', color: '#007bff' }}>
-                        Pergunta: Qual a resposta correta?
+                        <p style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px', color: '#007bff' }}>
+    Pergunta: {mission.descricao}
+</p>
                     </p>
 
                     <form onSubmit={handleSubmit}>
