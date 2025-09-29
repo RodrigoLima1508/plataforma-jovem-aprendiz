@@ -1,9 +1,9 @@
-// src/components/Layout.jsx - MENU FINAL E ESTÁVEL COM LOGO PDJA
+// src/components/Layout.jsx - MENU FINAL E ESTÁVEL (AGORA SEM LOGO, SÓ TEXTO)
 
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import pdjaLogo from '../assets/pdja-logo.png'; // Importa a imagem da logo
+// A importação de pdjaLogo foi removida
 
 const Layout = () => {
     const { logout } = useAuth();
@@ -24,15 +24,11 @@ const Layout = () => {
                 padding: '15px 30px', backgroundColor: '#007bff', color: 'white',
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
             }}>
-                {/* AQUI ESTÁ A MUDANÇA: Substituindo o texto "PDJA" pela tag <img> */}
-                <div>
-                    <img 
-    src={pdjaLogo} 
-    alt="PDJA Logo" 
-    style={{ height: '70px', flexShrink: 0 }} /* AUMENTADO PARA 50px e adicionado flexShrink */
-/>
+                {/* Voltando ao texto "PDJA" */}
+                <div style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                    PDJA
                 </div>
-                {/* FIM DA MUDANÇA */}
+                {/* Fim da mudança */}
 
                 <div>
                     <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
