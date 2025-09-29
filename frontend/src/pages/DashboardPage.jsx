@@ -1,4 +1,4 @@
-// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E COMPLETO (Corrigido o Bug de XP/Nível)
+// frontend/src/pages/DashboardPage.jsx - CÓDIGO FINAL E COMPLETO (Corrigido o Bug de XP/Nível e Erro de Sintaxe)
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -72,13 +72,11 @@ const DashboardPage = () => {
     return <div style={{ textAlign: 'center', marginTop: '50px', color: '#333' }}>Carregando Dashboard...</div>;
   }
   
-  // --- LÓGICA DE XP CORRIGIDA ---
   // --- LÓGICA DE XP CORRIGIDA FINAL ---
   const nivelAtual = profile.nivel || 1; // Garante que o nível não é 0 ou undefined
 
   // XP BASE que o usuário tinha ao entrar no Nível ATUAL
   // Ex: Se está no Nível 1, XP_base é 0. Se está no Nível 2, XP_base é 100.
-  // Se está no Nível 3, XP_base é 100 + 200 = 300 (Isso estava errado na lógica anterior)
   
   // O XP total necessário para atingir o nível ANTERIOR
   let xpTotalParaNivelAnterior = 0;
@@ -110,8 +108,7 @@ const DashboardPage = () => {
       progressoBarra = 100; // Se já passou, a barra fica cheia
   }
   // --- FIM DA LÓGICA DE XP CORRIGIDA FINAL ---
-  }
-  // --- FIM DA LÓGICA DE XP CORRIGIDA ---
+  // A CHAVE '}' EXTRA ESTAVA AQUI E FOI REMOVIDA.
 
   const missoesCount = profile.missoesConcluidas?.length || 0;
 
@@ -153,8 +150,8 @@ const DashboardPage = () => {
                 </div>
                 {/* Mensagem de XP restante */}
                 <p style={{ fontSize: '12px', color: '#6c757d', textAlign: 'right', marginTop: '5px' }}>
-    {xpRestanteParaProximoNivel > 0 ? `Faltam ${xpRestanteParaProximoNivel} XP para o próximo nível!` : 'Parabéns! Você subiu de nível!'}
-</p>
+                    {xpRestanteParaProximoNivel > 0 ? `Faltam ${xpRestanteParaProximoNivel} XP para o próximo nível!` : 'Parabéns! Você subiu de nível!'}
+                </p>
             </div>
         </div>
 
@@ -223,6 +220,6 @@ const DashboardPage = () => {
       </div>
     </div>
   );
-;
+};
 
 export default DashboardPage;
