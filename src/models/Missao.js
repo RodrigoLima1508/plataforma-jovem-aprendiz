@@ -18,7 +18,7 @@ const missaoSchema = mongoose.Schema({
   categoria: {
     type: String,
     required: true,
-    enum: ['TI', 'Obras', 'Suprimentos', 'RH', 'Outro'],
+    enum: ['TI', 'Obras', 'Suprimentos', 'RH', 'Outro','Administrativo'],
   },
   link: {
     type: String,
