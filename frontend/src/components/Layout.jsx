@@ -24,7 +24,7 @@ const Layout = () => {
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
             }}>
                 <div style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                    Plataforma Aprendiz
+                    PDJA
                 </div>
                 <div>
                     <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
